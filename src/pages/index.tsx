@@ -1,9 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Image from "next/image";
+import optusIcon from "../../public/optus-icon.png";
+import CheckIcon from "@mui/icons-material/Check";
+import InfoIcon from '@mui/icons-material/Info';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -15,8 +20,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
+        <div className={styles.chat_header}>
+          <ArrowBackIcon />
+          <div className={styles.chat_header_user}>
+            <Image src={optusIcon} alt="" />
+            <div className={styles.chat_header_user_info}>
+              <span>Optus</span>
+              <span>Tipically replies in a day</span>
+            </div>
+          </div>
+          <div className={styles.verify_user}>
+            <CheckIcon/>
+            <ArrowDropDownIcon />
+          </div>
+          <InfoIcon />
+        </div>
 
+        <div className={styles.chat_user_info}></div>
+
+        <div className={styles.chat_messages}></div>
+
+        <div className={styles.chat_type_messages}></div>
       </main>
     </>
-  )
+  );
 }
