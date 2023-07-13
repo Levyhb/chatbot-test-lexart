@@ -89,11 +89,11 @@
 
 @media only screen and (min-width: 1200px) {
 .chatbot{
-  max-width: 600px;
-  height: 600px;
+  width: 25vw;
+  height: 65vh;
   position: fixed;
-  top: 30%;
-  right: 5%;
+  top: 25%;
+  right: 7%;
   box-shadow: 0 0 3px black;
   border-radius: 0 0 0 10px;
 }
