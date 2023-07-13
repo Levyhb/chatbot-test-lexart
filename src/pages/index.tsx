@@ -5,8 +5,14 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Image from "next/image";
 import optusIcon from "../../public/optus-icon.png";
 import CheckIcon from "@mui/icons-material/Check";
-import InfoIcon from '@mui/icons-material/Info';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import InfoIcon from "@mui/icons-material/Info";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import AddIcon from "@mui/icons-material/Add";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import MicIcon from "@mui/icons-material/Mic";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import SendIcon from "@mui/icons-material/Send";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +36,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.verify_user}>
-            <CheckIcon/>
+            <CheckIcon />
             <ArrowDropDownIcon />
           </div>
           <InfoIcon />
@@ -39,16 +45,33 @@ export default function Home() {
         <div className={styles.chat_user}>
           <Image src={optusIcon} alt="" />
           <div className={styles.chat_user_info}>
-            <h2>Optus <CheckIcon /></h2>
-            <span>419k peopple like this including Maha Mourad and 35 friends</span>
+            <h2>
+              Optus <CheckIcon />
+            </h2>
+            <span>
+              419k peopple like this including Maha Mourad and 35 friends
+            </span>
             <span>Company</span>
           </div>
-        
         </div>
 
         <div className={styles.chat_messages}></div>
 
-        <div className={styles.chat_type_messages}></div>
+        <div className={styles.chat_type_messages}>
+          <AddIcon className={styles.add_icon} />
+          <CameraAltIcon />
+          <InsertPhotoIcon />
+          <MicIcon />
+          <div className={styles.input_message}>
+            <input
+              type="text"
+              placeholder="Aa"
+              className={styles.input_message}
+            />
+            <SentimentSatisfiedAltIcon />
+          </div>
+          <SendIcon className={styles.send_message} />
+        </div>
       </main>
     </>
   );
