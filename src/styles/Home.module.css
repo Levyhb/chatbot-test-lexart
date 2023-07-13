@@ -93,10 +93,12 @@
 }
 
 .chat_messages {
-  height: 55%;
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 .chat_type_messages {
+  background-color: white;
   align-items: center;
   bottom: 0%;
   border-top: 1px solid rgba(0, 0, 0, 0.103);
@@ -129,6 +131,49 @@
 
 .send_message {
   color: #0085FF;
+}
+
+.chat_messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.chat_time {
+  margin-bottom: 1rem;
+  color: rgba(0, 0, 0, 0.774);
+}
+
+.message {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.message p {
+  background-color: #e3e3e3;
+  width: 70%;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 10px 10px 10px 0;
+  margin-bottom: 1rem;
+}
+
+.message_own { 
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.message_own p { 
+  background-color: #0085FF;
+  color: white;
+  width: 70%;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 10px 10px 0 10px;
+  margin-bottom: 1rem;
 }
 
 @media only screen and (min-width: 1200px) {

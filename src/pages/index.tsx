@@ -55,7 +55,25 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.chat_messages}></div>
+        <div className={styles.chat_messages}>
+          <span className={styles.chat_time}>11:05 AM</span>
+
+          <div className={styles.message_own}>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+              consequuntur{" "}
+            </p>
+          </div>
+
+          <div className={styles.message}>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
+              voluptatum consequuntur mollitia sit itaque doloribus nostrum
+              labore. Cum nihil beatae cupiditate quo, est quam aspernatur,
+              sequi culpa facere numquam sapiente!
+            </p>
+          </div>
+        </div>
 
         <div className={styles.chat_type_messages}>
           <AddIcon className={styles.add_icon} />
