@@ -36,7 +36,15 @@ export default function Home() {
           <InfoIcon />
         </div>
 
-        <div className={styles.chat_user_info}></div>
+        <div className={styles.chat_user}>
+          <Image src={optusIcon} alt="" />
+          <div className={styles.chat_user_info}>
+            <h2>Optus <CheckIcon /></h2>
+            <span>419k peopple like this including Maha Mourad and 35 friends</span>
+            <span>Company</span>
+          </div>
+        
+        </div>
 
         <div className={styles.chat_messages}></div>
 

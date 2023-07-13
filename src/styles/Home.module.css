@@ -43,3 +43,39 @@
   height: 15px;
   width: 15px;
 }
+
+.chat_user {
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.096);
+  border-top: 1px solid rgba(0, 0, 0, 0.096);
+  display: flex;
+  margin: 1rem 0;
+  padding: 1rem 0;
+}
+
+.chat_user_info {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 5px;
+}
+
+.chat_user_info h2 {
+  font-size: 26px;
+}
+
+.chat_user_info span {
+  font-size: 14px;
+}
+
+.chat_user_info span:nth-child(3) {
+  color: rgba(0, 0, 0, 0.527);
+}
+
+.chat_user_info svg {
+  height: 20px;
+  width: 20px;
+  background-color: #0085FF;
+  color: white;
+  border-radius: 50%;
+}
