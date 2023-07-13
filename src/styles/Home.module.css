@@ -26,8 +26,15 @@
 .chat_header_user_info {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
   justify-content: center;
+}
+
+.chat_header_user_info h2 {
+  font-size: 16px;
+}
+
+.chat_header_user_info span{
+  font-size: 12px;
 }
 
 .verify_user {
@@ -78,4 +85,30 @@
   background-color: #0085FF;
   color: white;
   border-radius: 50%;
+}
+
+@media only screen and (min-width: 1200px) {
+.chatbot{
+  max-width: 600px;
+  height: 600px;
+  position: fixed;
+  top: 30%;
+  right: 5%;
+  box-shadow: 0 0 3px black;
+  border-radius: 0 0 0 10px;
+}
+
+.chat_header {
+  height: 8vh;
+}
+
+.chat_header_user img {
+  height: 55px;
+  width: 60px;
+}
+
+.chat_header_user_info {
+  font-size: 14px;
+}
+
 }
