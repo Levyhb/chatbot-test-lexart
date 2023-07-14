@@ -13,10 +13,35 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import MicIcon from "@mui/icons-material/Mic";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import SendIcon from "@mui/icons-material/Send";
+import { useState } from "react";
+import { processQuestion } from "@/utils/processQuestions";
 
-const inter = Inter({ subsets: ["latin"] });
+interface messageInterface {
+  user: string;
+  message: string;
+}
 
 export default function Home() {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<messageInterface[]>([]);
+
+  const sendMessage = () => {
+    const messageData = {
+      user: "user",
+      message,
+    };
+    setMessages((prevMessages) => [...prevMessages, messageData]);
+    setMessage("");
+    const botResponse = processQuestion(message);
+    if (botResponse) {
+      const botMessage = {
+        user: "bot",
+        message: botResponse,
+      };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -26,69 +51,70 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.chatbot}>
-        <div className={styles.chat_header}>
-          <ArrowBackIcon />
-          <div className={styles.chat_header_user}>
+        <div className={styles.chatbot_container}>
+          <div className={styles.chat_header}>
+            <ArrowBackIcon />
+            <div className={styles.chat_header_user}>
+              <Image src={optusIcon} alt="" />
+              <div className={styles.chat_header_user_info}>
+                <h2>Optus</h2>
+                <span>Tipically replies in a day</span>
+              </div>
+            </div>
+            <div className={styles.verify_user}>
+              <CheckIcon />
+              <ArrowDropDownIcon />
+            </div>
+            <InfoIcon />
+          </div>
+
+          <div className={styles.chat_user}>
             <Image src={optusIcon} alt="" />
-            <div className={styles.chat_header_user_info}>
-              <h2>Optus</h2>
-              <span>Tipically replies in a day</span>
+            <div className={styles.chat_user_info}>
+              <h2>
+                Optus <CheckIcon />
+              </h2>
+              <span>
+                419k peopple like this including Maha Mourad and 35 friends
+              </span>
+              <span>Company</span>
             </div>
           </div>
-          <div className={styles.verify_user}>
-            <CheckIcon />
-            <ArrowDropDownIcon />
-          </div>
-          <InfoIcon />
-        </div>
 
-        <div className={styles.chat_user}>
-          <Image src={optusIcon} alt="" />
-          <div className={styles.chat_user_info}>
-            <h2>
-              Optus <CheckIcon />
-            </h2>
-            <span>
-              419k peopple like this including Maha Mourad and 35 friends
-            </span>
-            <span>Company</span>
-          </div>
-        </div>
+          <div className={styles.chat_messages}>
+            <span className={styles.chat_time}>11:05 AM</span>
 
-        <div className={styles.chat_messages}>
-          <span className={styles.chat_time}>11:05 AM</span>
-
-          <div className={styles.message_own}>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-              consequuntur{" "}
-            </p>
+            {messages.map((e) => (
+              <div
+                className={
+                  e.user === "user" ? styles.message_own : styles.message
+                }
+                key={e.user}
+              >
+                <p>{e.message}</p>
+              </div>
+            ))}
           </div>
 
-          <div className={styles.message}>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
-              voluptatum consequuntur mollitia sit itaque doloribus nostrum
-              labore. Cum nihil beatae cupiditate quo, est quam aspernatur,
-              sequi culpa facere numquam sapiente!
-            </p>
+          <div className={styles.chat_type_messages}>
+            <AddIcon className={styles.add_icon} />
+            <CameraAltIcon />
+            <InsertPhotoIcon />
+            <MicIcon />
+            <div className={styles.input_message}>
+              <input
+                type="text"
+                placeholder="Aa"
+                className={styles.input_message}
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              />
+              <SentimentSatisfiedAltIcon />
+            </div>
+            <button className={styles.send_message} onClick={sendMessage}>
+              <SendIcon />
+            </button>
           </div>
-        </div>
-
-        <div className={styles.chat_type_messages}>
-          <AddIcon className={styles.add_icon} />
-          <CameraAltIcon />
-          <InsertPhotoIcon />
-          <MicIcon />
-          <div className={styles.input_message}>
-            <input
-              type="text"
-              placeholder="Aa"
-              className={styles.input_message}
-            />
-            <SentimentSatisfiedAltIcon />
-          </div>
-          <SendIcon className={styles.send_message} />
         </div>
       </main>
     </>
