@@ -20,29 +20,106 @@ interface messageInterface {
   message: string;
 }
 
+const initialBotMessage: messageInterface = {
+  user: "bot",
+  message:
+    "Welcome! You can start the conversation with 'Hello', 'Get started', or 'I want'.",
+};
+
+const mockUser = {
+  username: "john",
+  password: "123456",
+};
+
+const questionRegex = /\b(hello|get started|i want)\b/i;
+
 export default function Home() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<messageInterface[]>([
-    {
-      user: 'bot',
-    message: "Welcome! You can start the conversation with 'Hello', 'Get started', 'I want', or 'Good'."
+  const [messages, setMessages] = useState<messageInterface[]>([initialBotMessage]);
+  const [isUserVerified, setIsUserVerified] = useState(false);
+  const [verificationStep, setVerificationStep] = useState(0);
+
+  const verifyUser = () => {
+    const currentStep = verificationStep;
+    if (currentStep === 0) {
+      if (questionRegex.test(message)) {
+        const verificationMessage: messageInterface = {
+          user: "bot",
+          message: "Please enter your username:",
+        };
+        setMessages((prevMessages) => [...prevMessages, verificationMessage]);
+        setVerificationStep(currentStep + 1);
+      } else {
+        const verificationErrorMessage: messageInterface = {
+          user: "bot",
+          message:
+            "To get started, please initiate with 'Hello', 'Get started', or 'I want'.",
+        };
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          verificationErrorMessage,
+        ]);
+      }
+    } else if (currentStep === 1) {
+      if (message === mockUser.username) {
+        const passwordVerificationMessage: messageInterface = {
+          user: "bot",
+          message: "Please enter your password:",
+        };
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          passwordVerificationMessage,
+        ]);
+        setVerificationStep(currentStep + 1);
+      } else {
+        const usernameErrorMessage: messageInterface = {
+          user: "bot",
+          message: "Username is invalid. Please try again.",
+        };
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          usernameErrorMessage,
+        ]);
+      }
+    } else if (currentStep === 2) {
+      if (message === mockUser.password) {
+        setIsUserVerified(true);
+        const welcomeMessage: messageInterface = {
+          user: "bot",
+          message:
+            "Welcome back! You can ask about 'loans', 'account balance', or 'payments'. How can I assist you today?",
+        };
+        setMessages((prevMessages) => [...prevMessages, welcomeMessage]);
+      } else {
+        const passwordErrorMessage: messageInterface = {
+          user: "bot",
+          message: "Invalid password. Please try again.",
+        };
+        setMessages((prevMessages) => [...prevMessages, passwordErrorMessage]);
+        setVerificationStep(1);
+      }
     }
-  ]);
+    setMessage('')
+  };
 
   const sendMessage = () => {
-    const messageData = {
-      user: "user",
-      message,
-    };
-    setMessages((prevMessages) => [...prevMessages, messageData]);
-    setMessage("");
-    const botResponse = processQuestion(message);
-    if (botResponse) {
-      const botMessage = {
-        user: "bot",
-        message: botResponse,
+    if (!isUserVerified) {
+      verifyUser();
+    } else {
+      const messageData = {
+        user: "user",
+        message,
       };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      setMessages((prevMessages) => [...prevMessages, messageData]);
+      setMessage("");
+      const botResponse = processQuestion(message);
+      if (botResponse) {
+        const botMessage = {
+          user: "bot",
+          message: botResponse,
+        };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+      }
     }
   };
 
