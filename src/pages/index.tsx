@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Image from "next/image";
@@ -23,7 +22,12 @@ interface messageInterface {
 
 export default function Home() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<messageInterface[]>([]);
+  const [messages, setMessages] = useState<messageInterface[]>([
+    {
+      user: 'bot',
+    message: "Welcome! You can start the conversation with 'Hello', 'Get started', 'I want', or 'Good'."
+    }
+  ]);
 
   const sendMessage = () => {
     const messageData = {
@@ -84,12 +88,12 @@ export default function Home() {
           <div className={styles.chat_messages}>
             <span className={styles.chat_time}>11:05 AM</span>
 
-            {messages.map((e) => (
+            {messages.map((e, index) => (
               <div
                 className={
                   e.user === "user" ? styles.message_own : styles.message
                 }
-                key={e.user}
+                key={index}
               >
                 <p>{e.message}</p>
               </div>
