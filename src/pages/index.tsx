@@ -17,7 +17,7 @@ import { processQuestion } from "@/utils/processQuestions";
 
 interface messageInterface {
   user: string;
-  message: string;
+  message: string | { option: string; link: string }[];
 }
 
 const initialBotMessage: messageInterface = {
@@ -31,13 +31,23 @@ const mockUser = {
   password: "123456",
 };
 
-const questionRegex = /\b(hello|get started|i want)\b/i;
+interface optionsInterface {
+  link: string;
+  option: string;
+  instructions: string;
+}
 
 export default function Home() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<messageInterface[]>([initialBotMessage]);
+  const [messages, setMessages] = useState<messageInterface[]>([
+    initialBotMessage,
+  ]);
   const [isUserVerified, setIsUserVerified] = useState(false);
   const [verificationStep, setVerificationStep] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<optionsInterface | null>(
+    null
+  );
+  const questionRegex = /\b(hello|get started|i want)\b/i;
 
   const verifyUser = () => {
     const currentStep = verificationStep;
@@ -76,10 +86,7 @@ export default function Home() {
           user: "bot",
           message: "Username is invalid. Please try again.",
         };
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          usernameErrorMessage,
-        ]);
+        setMessages((prevMessages) => [...prevMessages, usernameErrorMessage]);
       }
     } else if (currentStep === 2) {
       if (message === mockUser.password) {
@@ -87,7 +94,7 @@ export default function Home() {
         const welcomeMessage: messageInterface = {
           user: "bot",
           message:
-            "Welcome back! You can ask about 'loans', 'account balance', or 'payments'. How can I assist you today?",
+            "Welcome back! You can ask about 'loan', 'account balance', or 'payments'. How can I assist you today?",
         };
         setMessages((prevMessages) => [...prevMessages, welcomeMessage]);
       } else {
@@ -99,7 +106,7 @@ export default function Home() {
         setVerificationStep(1);
       }
     }
-    setMessage('')
+    setMessage("");
   };
 
   const sendMessage = () => {
@@ -121,6 +128,11 @@ export default function Home() {
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       }
     }
+  };
+
+  const proceedOptions = (link: string, option: string) => {
+    const instructions = processQuestion(option);
+    setSelectedOption({ link, option, instructions: instructions as string });
   };
 
   return (
@@ -172,7 +184,36 @@ export default function Home() {
                 }
                 key={index}
               >
-                <p>{e.message}</p>
+                {typeof e.message === "string" ? (
+                  <p>{e.message}</p>
+                ) : (
+                  <div className={styles.bot_options}>
+                    <h4>Here some options to proceed</h4>
+                    {e.message.map((option, index) => (
+                      <button
+                        key={index}
+                        onClick={() =>
+                          proceedOptions(option.link, option.option)
+                        }
+                      >
+                        {option.option}
+                      </button>
+                    ))}
+                    {selectedOption && (
+                      <div
+                        className={`${styles.selected_options} ${styles.message}`}
+                      >
+                        <p>{selectedOption.instructions}</p>
+                        <span>
+                          More informations for{" "}
+                          <a href={selectedOption.link}>
+                            {selectedOption.option}
+                          </a>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
