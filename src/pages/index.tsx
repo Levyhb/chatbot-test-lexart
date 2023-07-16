@@ -14,11 +14,9 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import { processQuestion } from "@/utils/processQuestions";
-
-interface messageInterface {
-  user: string;
-  message: string | { option: string; link: string }[];
-}
+import { messageInterface } from "@/types/messageInterface";
+import { optionsInterface } from "@/types/optionsInterface";
+import ChatMessages from "@/components/Messages/ChatMessages";
 
 const initialBotMessage: messageInterface = {
   user: "bot",
@@ -30,12 +28,6 @@ const mockUser = {
   username: "john",
   password: "123456",
 };
-
-interface optionsInterface {
-  link: string;
-  option: string;
-  instructions: string;
-}
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -176,46 +168,11 @@ export default function Home() {
 
           <div className={styles.chat_messages}>
             <span className={styles.chat_time}>11:05 AM</span>
-
-            {messages.map((e, index) => (
-              <div
-                className={
-                  e.user === "user" ? styles.message_own : styles.message
-                }
-                key={index}
-              >
-                {typeof e.message === "string" ? (
-                  <p>{e.message}</p>
-                ) : (
-                  <div className={styles.bot_options}>
-                    <h4>Here some options to proceed</h4>
-                    {e.message.map((option, index) => (
-                      <button
-                        key={index}
-                        onClick={() =>
-                          proceedOptions(option.link, option.option)
-                        }
-                      >
-                        {option.option}
-                      </button>
-                    ))}
-                    {selectedOption && (
-                      <div
-                        className={`${styles.selected_options} ${styles.message}`}
-                      >
-                        <p>{selectedOption.instructions}</p>
-                        <span>
-                          More informations for{" "}
-                          <a href={selectedOption.link}>
-                            {selectedOption.option}
-                          </a>
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+            <ChatMessages
+              messages={messages}
+              selectedOption={selectedOption}
+              proceedOptions={proceedOptions}
+            />
           </div>
 
           <div className={styles.chat_type_messages}>
