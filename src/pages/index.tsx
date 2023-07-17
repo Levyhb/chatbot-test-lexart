@@ -86,8 +86,9 @@ export default function Home() {
         setIsUserVerified(true);
         const welcomeMessage: messageInterface = {
           user: "bot",
-          message:
-            "Welcome back! You can ask about 'loan', 'account balance', or 'payments', and you can end a conversation with 'goodbye'. How can I assist you today?",
+          message: `Welcome back! You can ask about 'loan' or 'conversations',
+            and you can end a conversation with
+            'goodbye'. How can I assist you today?`,
         };
         setMessages((prevMessages) => [...prevMessages, welcomeMessage]);
       } else {
@@ -113,7 +114,7 @@ export default function Home() {
             "Thank you for the conversation! Your conversation has been saved.",
         };
 
-        saveConversation(messages, mockUser.username)
+        saveConversation(messages, mockUser.username);
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       } else {
         const messageData = {

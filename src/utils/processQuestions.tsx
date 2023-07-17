@@ -1,4 +1,12 @@
 export const processQuestion = (question: string) => {
+  if (question.toLowerCase() === "conversations") {
+    return [
+      {
+        option: "Saved conversations",
+        link: "https://www.example.com/saved-conversations",
+      },
+    ]
+  }
   if (question.toLowerCase() === "loan") {
     return [
       {
@@ -22,6 +30,8 @@ export const processQuestion = (question: string) => {
     return "Our loan conditions are designed to suit your needs. We offer competitive interest rates, flexible repayment terms, and various loan amounts.";
   } else if (question.toLowerCase().includes("help")) {
     return "We're here to assist you! If you need any help regarding loans, loan conditions, or any other queries, feel free to reach out to our customer support team";
+  } else if (question.toLowerCase().includes("saved conversations")) {
+    return "Here you can see more about your saved conversations";
   } else {
     return "I'm sorry I did not understand your question";
   }
