@@ -17,6 +17,7 @@ import { processQuestion } from "@/utils/processQuestions";
 import { messageInterface } from "@/types/messageInterface";
 import { optionsInterface } from "@/types/optionsInterface";
 import ChatMessages from "@/components/Messages/ChatMessages";
+import { saveConversation } from "@/utils/conversationStorage";
 
 const initialBotMessage: messageInterface = {
   user: "bot",
@@ -86,7 +87,7 @@ export default function Home() {
         const welcomeMessage: messageInterface = {
           user: "bot",
           message:
-            "Welcome back! You can ask about 'loan', 'account balance', or 'payments'. How can I assist you today?",
+            "Welcome back! You can ask about 'loan', 'account balance', or 'payments', and you can end a conversation with 'goodbye'. How can I assist you today?",
         };
         setMessages((prevMessages) => [...prevMessages, welcomeMessage]);
       } else {
@@ -105,19 +106,30 @@ export default function Home() {
     if (!isUserVerified) {
       verifyUser();
     } else {
-      const messageData = {
-        user: "user",
-        message,
-      };
-      setMessages((prevMessages) => [...prevMessages, messageData]);
-      setMessage("");
-      const botResponse = processQuestion(message);
-      if (botResponse) {
+      if (message.toLowerCase() === "goodbye") {
         const botMessage = {
           user: "bot",
-          message: botResponse,
+          message:
+            "Thank you for the conversation! Your conversation has been saved.",
         };
+
+        saveConversation(messages, mockUser.username)
         setMessages((prevMessages) => [...prevMessages, botMessage]);
+      } else {
+        const messageData = {
+          user: "user",
+          message,
+        };
+        setMessages((prevMessages) => [...prevMessages, messageData]);
+        setMessage("");
+        const botResponse = processQuestion(message);
+        if (botResponse) {
+          const botMessage = {
+            user: "bot",
+            message: botResponse,
+          };
+          setMessages((prevMessages) => [...prevMessages, botMessage]);
+        }
       }
     }
   };
