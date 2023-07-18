@@ -115,6 +115,7 @@ export default function Home() {
   };
 
   const sendMessage = () => {
+    setSelectedOption(null)
     if (!isUserVerified) {
       verifyUser();
     } else {
