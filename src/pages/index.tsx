@@ -114,26 +114,27 @@ export default function Home() {
     setMessage("");
   };
 
-  const sendMessage = () => {
+  const sendMessage = (e: any) => {
+    e.preventDefault()
+    const messageUserData = {
+      user: "user",
+      message,
+    };
     setSelectedOption(null)
     if (!isUserVerified) {
       verifyUser();
     } else {
       if (message.toLowerCase() === "goodbye") {
+        setMessages((prevMessages) => [...prevMessages, messageUserData]);
         const botMessage = {
           user: "bot",
           message:
             "Thank you for the conversation! Your conversation has been saved.",
         };
-
         saveConversation(messages, mockUser.username);
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       } else {
-        const messageData = {
-          user: "user",
-          message,
-        };
-        setMessages((prevMessages) => [...prevMessages, messageData]);
+        setMessages((prevMessages) => [...prevMessages, messageUserData]);
         setMessage("");
         const botResponse = processQuestion(message);
         if (botResponse) {
@@ -217,7 +218,6 @@ export default function Home() {
             </div>
             <button
               className={styles.send_message}
-              onClick={sendMessage}
               disabled={message.length === 0}
             >
               <SendIcon />
