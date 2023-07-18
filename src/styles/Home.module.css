@@ -137,6 +137,10 @@
   color: #0085FF;
 }
 
+.send_message:disabled {
+  cursor: not-allowed;
+}
+
 .chat_messages {
   display: flex;
   flex-direction: column;
@@ -163,6 +167,10 @@
 .chatbot_container {
   position: relative;
   height: 100%;
+}
+
+.chat_messages {
+  max-height: 45%;
 }
 
 .chat_type_messages {

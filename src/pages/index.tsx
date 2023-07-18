@@ -12,7 +12,7 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import MicIcon from "@mui/icons-material/Mic";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { processQuestion } from "@/utils/processQuestions";
 import { messageInterface } from "@/types/messageInterface";
 import { optionsInterface } from "@/types/optionsInterface";
@@ -40,7 +40,18 @@ export default function Home() {
   const [selectedOption, setSelectedOption] = useState<optionsInterface | null>(
     null
   );
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const questionRegex = /\b(hello|get started|i want)\b/i;
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      const { scrollHeight, clientHeight } = messagesContainerRef.current;
+      messagesContainerRef.current.scrollTo({
+        top: scrollHeight - clientHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
 
   const verifyUser = () => {
     const currentStep = verificationStep;
@@ -179,7 +190,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.chat_messages}>
+          <div className={styles.chat_messages} ref={messagesContainerRef}>
             <span className={styles.chat_time}>11:05 AM</span>
             <ChatMessages
               messages={messages}
@@ -188,7 +199,7 @@ export default function Home() {
             />
           </div>
 
-          <div className={styles.chat_type_messages}>
+          <form className={styles.chat_type_messages} onSubmit={sendMessage}>
             <AddIcon className={styles.add_icon} />
             <CameraAltIcon />
             <InsertPhotoIcon />
@@ -203,10 +214,14 @@ export default function Home() {
               />
               <SentimentSatisfiedAltIcon />
             </div>
-            <button className={styles.send_message} onClick={sendMessage}>
+            <button
+              className={styles.send_message}
+              onClick={sendMessage}
+              disabled={message.length === 0}
+            >
               <SendIcon />
             </button>
-          </div>
+          </form>
         </div>
       </main>
     </>
