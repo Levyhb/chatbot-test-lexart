@@ -15,3 +15,11 @@ export const saveConversation = (messages:messageInterface[], user: string): voi
   conversations.push(conversationSaved);
   localStorage.setItem("conversations", JSON.stringify(conversations));
 };
+
+export const getSavedConversations = () => {
+  const existingConversations = localStorage.getItem("conversations");
+  if (existingConversations) {
+    return JSON.parse(existingConversations);
+  }
+  return;
+};

@@ -41,7 +41,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
                   <p>{selectedOption.instructions}</p>
                   <span>
                     More informations for{" "}
-                    <a href={selectedOption.link}>
+                    <a href={selectedOption.link} target="_blank">
                       {selectedOption.option}
                     </a>
                   </span>

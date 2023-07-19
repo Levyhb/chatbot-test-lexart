@@ -1,0 +1,16 @@
+.conversation {
+  padding: 1rem;
+}
+
+.conversation h1{
+  margin-bottom: 2rem;
+}
+
+.download_conversation button{
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin: 1rem;
+  font-size: 18px;
+  color: #0085FF;
+}

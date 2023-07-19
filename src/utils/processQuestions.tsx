@@ -3,7 +3,7 @@ export const processQuestion = (question: string) => {
     return [
       {
         option: "Saved conversations",
-        link: "https://www.example.com/saved-conversations",
+        link: `${window.location.href}/conversation`,
       },
     ]
   }
