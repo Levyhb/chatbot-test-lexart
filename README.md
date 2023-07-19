@@ -1,19 +1,20 @@
 # chatbot-test-lexart
 
-Aplicação web que consiste simular um chatbot, teste técnico para a [Lexart](https://lexartlabs.com/)
-## Stack utilizada
+Web application that consists of simulating a chatbot, technical test for the [Lexart](https://lexartlabs.com/)
+
+## Stacks
 
 **Front-end:** React, Nextjs, Typescript, CSS, HTML
 
-## Rodando localmente
+## how to run locally
 
-Clone o projeto
+Clone the project
 
 ```bash
   git clone git@github.com:Levyhb/chatbot-test-lexart.git
 ```
 
-- Entre no diretório do projeto
+- Enter the project directory
 
 ```bash
   cd chatbot-test-lexart
@@ -21,23 +22,25 @@ Clone o projeto
 ```
 
 
-#### Instale as dependências
+#### Installing dependencies
 ```
   npm install
 ```
-#### Rode a aplicação
+#### Running the application
+
 ```
   npm run dev
 ```
 
 
-* Utilize como exemplo de usuario:
+* Use as example user:
 
 username: john
 
 password: 123456
 
-### Demonstração
-[Deploy da aplicação](https://chatbot-test-lexart.vercel.app/)
+### Demonstration
+
+[Aplication deployment](https://chatbot-test-lexart.vercel.app/)
 
 
